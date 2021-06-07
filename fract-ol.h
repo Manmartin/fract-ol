@@ -14,7 +14,7 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define ZOOM 0.8
+# define ZOOM 0.9
 
 /*
 ** ORIGIN CONFIGURATION
@@ -22,8 +22,8 @@
 **
 */
 # define COLOR_RANGE	6
-# define PRECISION  	100
-
+# define PRECISION  	50
+# define MOVEMENT		0.2
 
 /*
 ** Data structure for minilibX images
@@ -52,13 +52,18 @@ typedef struct s_conf
 	double 	zoom;
 	int		color1;
 	int		color2;
+
+	t_img img;
+	void	*mlx;
+	void	*window;
 } t_conf;
 
 
 void	mandelbrot_conf(int argc, char **argv);
+void	julia_conf(int argc, char **argv);
 
 void	window_loop(t_conf *frac);
 
-void	show_fractal(t_img img, t_conf *conf);
+void	show_fractal(t_conf *conf);
 
 #endif

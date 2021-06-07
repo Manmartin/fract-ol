@@ -20,5 +20,7 @@ int	main(int argc, char **argv)
 		printf("Mal\n");
 	else if (!ft_strncmp("mandelbrot", argv[1], 11))
 		mandelbrot_conf(argc, argv);
+	else if (!ft_strncmp("julia", argv[1], 6))
+		julia_conf(argc, argv);
 	return (0);
 }

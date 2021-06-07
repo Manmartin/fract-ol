@@ -5,7 +5,7 @@ NAME = fract-ol
 
 SRC	 = fract-ol.c \
 	graphics/render.c graphics/window_manager.c \
-	fractals/mandelbrot.c \
+	fractals/mandelbrot.c fractals/julia.c\
 	complex/complex_functions.c 
 
 OBJS = $(SRC:.c=.o)
@@ -16,7 +16,7 @@ MLX_A = $(shell echo "$(MLX)mlx.a")
 ifeq ($(OS), Linux)
 	CC = gcc
 	MLX	= ./mlx_linux/
-	EXTRA_FLAGS	= -L ./mlx_linux/ -l mlx -lXext -lX11 -lm 
+	EXTRA_FLAGS	= -L ./mlx_linux/ -l mlx -lXext -lX11 -lm
 else
 	CC = clang
 	MLX	= ./mlx/
