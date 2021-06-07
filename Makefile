@@ -1,9 +1,12 @@
 OS	= $(shell uname)
 FLAGS	= -Wall -Wextra -Werror
 
-NAME = fract-ol
+NAME = fract-ol 
 
-SRC	 = fract-ol.c
+SRC	 = fract-ol.c \
+	graphics/render.c graphics/window_manager.c \
+	fractals/mandelbrot.c \
+	complex/complex_functions.c 
 
 OBJS = $(SRC:.c=.o)
 
