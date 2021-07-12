@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 	else if (!ft_strncmp("mandelbrot", argv[1], 11))
 		mandelbrot_conf();
 	else if (!ft_strncmp("julia", argv[1], 6))
-		julia_conf();
+		julia_conf(argc, argv);
 	else
 		printf("Wrong, try:\n./fract-ol mandelbrot\nor\n./frat-ol julia\n");
 	return (0);

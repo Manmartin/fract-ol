@@ -5,6 +5,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <limits.h>
 
 # include "complex/complx.h"
 
@@ -57,7 +58,7 @@ typedef struct s_conf
 }	t_conf;
 
 void	mandelbrot_conf(void);
-void	julia_conf(void);
+void	julia_conf(int argc, char **argv);
 
 void	window_loop(t_conf *frac);
 
