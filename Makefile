@@ -1,5 +1,5 @@
-CFLAGS	= -Wall -Wextra -Werror
 NAME = fractol 
+CFLAGS	= -Wall -Wextra -Werror
 SRC	 = fractol.c \
 	graphics/render.c graphics/window_manager.c \
 	fractals/mandelbrot.c fractals/julia.c\

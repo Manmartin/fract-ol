@@ -4,7 +4,6 @@
 # include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <math.h>
 # include <stdbool.h>
 
 # include "complex/complx.h"
