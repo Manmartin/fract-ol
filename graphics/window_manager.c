@@ -1,66 +1,72 @@
-#include "../fract-ol.h"
+#include "../fractol.h"
+#include "macros.h"
 
-static void conf_init(t_conf *conf)
+static void	conf_init(t_conf *conf)
 {
-	conf->xsum = -1;
-	conf->ysum = -1;
-	conf->zoom = 1;
+	conf->xsum = 0;
+	conf->ysum = 0;
+	conf->zoom = 1.0;
 	conf->color1 = 0x002caadb;
 	conf->color2 = 0x00ffbe30;
 }
 
-
-int		zoom(int kikoff, t_conf *conf)
+static int	zoom(int kikoff, int x, int y, t_conf *conf)
 {
-	if (kikoff == 112)
+	(void)x;
+	(void)y;
+	if (kikoff == 5)
 	{
 		conf->zoom *= ZOOM;
 		show_fractal(conf);
 	}
-	else if (kikoff == 108)
+	else if (kikoff == 4)
 	{
 		conf->zoom /= ZOOM;
 		show_fractal(conf);
 	}
-	else if (kikoff == 65362)
-	{
-		conf->ysum -= MOVEMENT;
-		show_fractal(conf);
-	}
-	else if (kikoff == 65364)
-	{
-		conf->ysum += MOVEMENT;
-		show_fractal(conf);
-	}
-	else if (kikoff == 65361)
-	{
-		conf->xsum -= MOVEMENT;
-		show_fractal(conf);
-	}
-	else if (kikoff == 65363)
-	{
-		conf->xsum += MOVEMENT;
-		show_fractal(conf);
-	}
-	else if (kikoff == 65307)
-	{
-		mlx_loop_end(conf->mlx);
-		exit (0);
-	}
+	return (0);
 }
 
+static int	move(int kikoff, t_conf *conf)
+{
+	if (kikoff == 126)
+	{
+		conf->ysum -= MOVEMENT * conf->zoom;
+		show_fractal(conf);
+	}
+	else if (kikoff == 125)
+	{
+		conf->ysum += MOVEMENT * conf->zoom;
+		show_fractal(conf);
+	}
+	else if (kikoff == 123)
+	{
+		conf->xsum -= MOVEMENT * conf->zoom;
+		show_fractal(conf);
+	}
+	else if (kikoff == 124)
+	{
+		conf->xsum += MOVEMENT * conf->zoom;
+		show_fractal(conf);
+	}
+	else if (kikoff == 53)
+		exit (0);
+	return (0);
+}
 
 void	window_loop(t_conf *conf)
 {
-    t_img   img;
+	t_img	img;
 
 	conf_init(conf);
-    conf->mlx = mlx_init();
+	conf->mlx = mlx_init();
 	img.img = mlx_new_image(conf->mlx, WIDTH, HEIGHT);
-    img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.size_line, &img.endian);
+	img.addr = mlx_get_data_addr(img.img,
+			&img.bpp, &img.size_line, &img.endian);
 	conf->window = mlx_new_window(conf->mlx, WIDTH, HEIGHT, "FRACT-OL");
 	conf->img = img;
 	show_fractal(conf);
-	mlx_key_hook(conf->window, zoom, conf);
+	mlx_hook(conf->window, KEYPRESS, 0, move, conf);
+	mlx_hook(conf->window, 4, 1L << 8, zoom, conf);
 	mlx_loop(conf->mlx);
 }

@@ -1,6 +1,6 @@
-#include "../fract-ol.h"
+#include "../fractol.h"
 
-unsigned int mandelbrot(t_complex xy, t_conf fconf)
+unsigned int	mandelbrot(t_complex xy, t_conf fconf)
 {
 	t_complex	c;
 	t_complex	z;
@@ -19,7 +19,7 @@ unsigned int mandelbrot(t_complex xy, t_conf fconf)
 	return (0);
 }
 
-void	mandelbrot_conf(int argc, char **argv)
+void	mandelbrot_conf(void)
 {
 	t_conf	fconf;
 

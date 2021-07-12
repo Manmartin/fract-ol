@@ -1,11 +1,11 @@
-#ifndef COMPLEX_H
-# define COMPLEX_H
+#ifndef COMPLX_H
+# define COMPLX_H
 
 typedef struct s_complex
 {
-	double real;
-	double imag;
-} t_complex;
+	double	real;
+	double	imag;
+}	t_complex;
 
 t_complex	init_complex(double real, double imag);
 t_complex	add_complex(t_complex n1, t_complex n2);
