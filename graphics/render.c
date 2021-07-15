@@ -15,11 +15,11 @@ unsigned int	select_color(t_conf conf, unsigned int n)
 
 	if (n == 0)
 		return (0);
-	diff = (conf.color2 - conf.color1) / COLOR_RANGE;
-	return (conf.color1 * (diff * (n % COLOR_RANGE)));
+	diff = (conf.color2 - conf.color1) / conf.range;
+	return (conf.color1 * (diff * (n % conf.range)));
 }
 
-static t_complex	map(t_complex coords, t_conf conf)
+t_complex	map(t_complex coords, t_conf conf)
 {
 	coords.real = ((coords.real * 4 / WIDTH) - 2) * conf.zoom + conf.xsum;
 	coords.imag = ((coords.imag * 4 / HEIGHT) - 2) * conf.zoom + conf.ysum;

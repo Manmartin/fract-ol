@@ -6,50 +6,67 @@ static void	conf_init(t_conf *conf)
 	conf->xsum = 0;
 	conf->ysum = 0;
 	conf->zoom = 1.0;
+	conf->range = COLOR_RANGE;
 	conf->color1 = 0x002caadb;
 	conf->color2 = 0x00ffbe30;
 }
 
 static int	zoom(int kikoff, int x, int y, t_conf *conf)
 {
-	(void)x;
-	(void)y;
+	t_complex	center;
+
+	center = map(init_complex(x, y), *conf);
 	if (kikoff == 5)
 	{
+		conf->xsum = center.real;
+		conf->ysum = center.imag;
 		conf->zoom *= ZOOM;
 		show_fractal(conf);
 	}
 	else if (kikoff == 4)
 	{
+		conf->xsum = center.real;
+		conf->ysum = center.imag;
 		conf->zoom /= ZOOM;
 		show_fractal(conf);
 	}
 	return (0);
 }
 
+static void	color_shift(t_conf *conf)
+{
+	if (conf->range == 6)
+		conf->range = 16;
+	else
+		conf->range = 6;
+	show_fractal(conf);
+}
+
 static int	move(int kikoff, t_conf *conf)
 {
-	if (kikoff == 126)
+	if (kikoff == KEY_UP)
 	{
 		conf->ysum -= MOVEMENT * conf->zoom;
 		show_fractal(conf);
 	}
-	else if (kikoff == 125)
+	else if (kikoff == KEY_DOWN)
 	{
 		conf->ysum += MOVEMENT * conf->zoom;
 		show_fractal(conf);
 	}
-	else if (kikoff == 123)
+	else if (kikoff == KEY_LEFT)
 	{
 		conf->xsum -= MOVEMENT * conf->zoom;
 		show_fractal(conf);
 	}
-	else if (kikoff == 124)
+	else if (kikoff == KEY_RIGHT)
 	{
 		conf->xsum += MOVEMENT * conf->zoom;
 		show_fractal(conf);
 	}
-	else if (kikoff == 53)
+	else if (kikoff == KEY_P)
+		color_shift(conf);
+	else if (kikoff == KEY_ESCAPE)
 		exit (0);
 	return (0);
 }
